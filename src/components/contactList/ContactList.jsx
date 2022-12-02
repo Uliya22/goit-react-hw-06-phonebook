@@ -1,35 +1,32 @@
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+import { ContactItem } from '../contactItem/ContactItem';
+import { selectContacts, selectValueFilter } from '../../redux/selectors';
 import css from './ContactList.module.css';
 
-export const ContactList = ({ contacts, onDeleteContact }) => {
-  return (
-    <div className={css.listContainer}>
-      <ul className={css.phoneList}>
-        {contacts.map(contact => (
-          <li className={css.listItem} key={contact.id}>
-            <span className={css.listText}>{`${contact.name}${': '}`}</span>
-            <span className={css.listText}>{contact.number}</span>
-            <button
-              type="button"
-              className={css.listButton}
-              onClick={() => onDeleteContact(contact.id)}
-            >
-              Delete
-            </button>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-};
+export const ContactList = () => {
+  const getVisibleContacts = () => {
+    const normalizedFilter = FilterValue.toLowerCase();
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(normalizedFilter)
+    );
+  };
 
-ContactList.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.exact({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-    })
-  ),
-  onDeleteContact: PropTypes.func.isRequired,
+  const contacts = useSelector(selectContacts);
+  const FilterValue = useSelector(selectValueFilter);
+  const visibleContacts = getVisibleContacts(contacts, FilterValue);
+
+  return (
+    <>
+      <h2 className={css.listTitle}>Contacts</h2>
+      <div className={css.listContainer}>
+        <ul className={css.phoneList}>
+          {visibleContacts.map(contact => (
+            <li className={css.listItem} key={contact.id}>
+              <ContactItem contact={contact} />
+            </li>
+          ))}
+        </ul>
+      </div>
+    </>
+  );
 };

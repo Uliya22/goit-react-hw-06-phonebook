@@ -1,44 +1,29 @@
+.listTitle {
+  margin: 20px 0;
+  font-size: 26px;
+  font-weight: 700;
+  color: white;
+}
+
 .listContainer {
   display: flex;
   flex-direction: column;
   width: 480px;
   min-height: 50px;
+  max-height: 200px;
   border: 2px solid #4f4f8c;
   border-radius: 6px;
   padding: 40px 30px;
   background-color: #b1ceef;
-}
-.listItem {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 5px;
+  overflow-y: auto;
 }
 
 .nameContainer {
   margin-right: 20px;
 }
-.listText {
-  font-size: 20px;
-  font-weight: 400;
-  color: #4f4f8c;
-}
 
-.listText:not(:last-child) {
-  margin-right: 20px;
-}
-
-.listButton {
-  width: 60px;
-  height: 25px;
-  border: 2px solid #4f4f8c;
-  border-radius: 4px;
-  font-size: 14px;
-  font-weight: 400;
-  color: #4f4f8c;
-  cursor: pointer;
-}
-
-.listButton:hover {
-  background-color: #4f4f8c;
-  color: white;
+.listItem {
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 0.5fr;
+  grid-gap: 1vw;
 }
